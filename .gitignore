@@ -1,0 +1,18 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+*.iml
+build
+.gradle
+
+# idea
+/.idea/caches
+/.idea/jarRepositories.xml
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# Mac
+.DS_Store
