@@ -4,39 +4,30 @@ import org.springframework.stereotype.Service
 import kotlin.random.Random
 
 @Service
-class BookService {
-
-    val books = mutableListOf(
-        Book(
-            id = 1,
-            name = "Harry Potter",
-        ),
-        Book(
-            id = 2,
-            name = "Test",
-        ),
-    )
+class BookService(
+    private val repository: BookRepository,
+) {
 
     fun getAllBooks(): List<BookJson> {
-        return books.map { it.toJson() }
+        return repository.findAll().map { it.toJson() }
     }
 
-    fun createBook(request: CreateBookJson): Book {
+    fun createBook(request: CreateBookJson): BookJson {
         if (request.name.isNullOrBlank()) {
             throw IllegalArgumentException()
         }
 
-        val book = Book(
+        val book = BookEntity(
             id = Random.nextInt(),
             name = request.name,
         )
 
-        books.add(book.toDomain())
+        repository.save(book)
 
-        return book
+        return book.toJson()
     }
 
     fun deleteBook(id: Int) {
-        books.removeIf { it.id == id }
+        repository.deleteById(id)
     }
 }
